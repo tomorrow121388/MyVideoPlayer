@@ -1,0 +1,114 @@
+* {
+    /*margin: 20px;*/
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background-image: url("../images/fengjing.jpg");
+    background-size: 100% 100%;
+    background-attachment: fixed;
+    -webkit-background-size: cover; /* 兼容Webkit内核浏览器如Chrome和Safari */
+    -o-background-size: cover; /* 兼容Opera */
+}
+
+/* 设置页眉的样式 */
+.header {
+    margin: auto;
+
+    width: 850px;
+    height: 500px;
+    position: relative;
+    /*background-color: #b92c28;*/
+    /*text-align: center;*/
+
+}
+
+
+/* 设置顶部导航栏的样式 */
+.topnav {
+    /*margin: 20px;*/
+    overflow: hidden;
+    background-color: #333;
+    text-align: center;
+}
+
+/* 设置 topnav 链接的样式 */
+.topnav a {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+/* 改变鼠标悬停时的颜色 */
+.topnav a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+/* 创建并排的三个非等列 */
+.column {
+    float: left;
+    width: 33.33%;
+    padding: 15px;
+}
+
+/*!* 清除列之后的浮动 *!*/
+/*.row:after {*/
+/*    content: "";*/
+/*    display: table;*/
+/*    clear: both;*/
+/*}*/
+
+/*!* 响应式布局 - 创建堆叠而非并排的三列 *!*/
+/*@media screen and (max-width: 600px) {*/
+/*    .column {*/
+/*        width: 100%;*/
+/*    }*/
+/*}*/
+
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto auto auto;
+    grid-gap: 10px;
+    /*background-color: #2196F3;*/
+    padding: 10px;
+
+    word-wrap: break-word;
+    /*word-break:break-all;*/
+
+}
+
+.grid-item {
+    /*background-color: rgba(255, 255, 255, 0.8);*/
+    /*border: 1px solid rgba(0, 0, 0, 0.8);*/
+    /*imgs-size: 10px;*/
+    /*text-align: center;*/
+    width: 250px;
+    height: 280px;
+    border-radius: 15px;
+}
+
+.grid-item a {
+    color: #0f0f0f;
+    text-decoration: none;
+}
+
+.grid-item a:hover {
+    color: #2aabd2;
+}
+
+
+.container {
+    background-color: transparent;
+    text-align: center;
+}
+
+.row {
+    background-color: transparent;
+    text-align: center;
+}

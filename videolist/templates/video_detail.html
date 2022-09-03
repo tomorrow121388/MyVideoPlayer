@@ -1,0 +1,215 @@
+{% load static %}
+{% include "base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ view_obj.title }}</title>
+    <link rel="stylesheet" href="{% static 'bootstrap-3.4.1-dist/css/video_detail.css' %}">
+    <style>
+        #favorite {
+            width: 25px;
+            height: 25px;
+        }
+
+        #collect {
+            width: 25px;
+            height: 25px;
+        }
+    </style>
+</head>
+<body>
+<div class="base_control">
+    <div class="left_base">
+        <div class="left_title">
+            <h2>{{ view_obj.title }}</h2>
+            <br>
+            <h4><span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span> {{ view_obj.users_view_count }}
+                <span class="glyphicon glyphicon-time"
+                      aria-hidden="true"></span> {{ view_obj.create_time|date:"Y-m-d H:i:s" }}
+                <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> {{ video_comment_count }}</h4>
+        </div>
+        <div class="left_video">
+            <video width="100%" height="100%" controls>
+                <source src="../../{{ view_obj.file }}" type="video/mp4">
+            </video>
+        </div>
+        <div class="left_like_collect">
+            <div class="left_like">{# 喜欢 #}
+                <div class="favoritegit action">
+                    {#                    <img id="favorite" video-id="{{ video_id }}" src="../static/imgs/点赞1.svg" alt=""/>#}
+                    {% if favorite_static %}
+                        <img id="favorite" video-id="{{ video_id }}" src={% static "imgs/点赞1.svg" %}
+                             alt=""/>
+                    {% else %}
+                        <img id="favorite" video-id="{{ video_id }}" src={% static "imgs/点赞.svg" %}
+                             alt=""/>
+                    {% endif %}
+
+                    <span id="favorite_count">{{ view_obj.user_favorite_count }}</span>{# 动态获取点赞数 #}
+                </div>
+            </div>
+
+            <div class="left_collect">{# 收藏 #}
+                <div class="collectgit action">
+                    {#                    <img id="collect" video-id="{{ video_id }}" src="../static/imgs/收藏1.svg" alt=""/>#}
+                    {% if collect_static %}
+                        <img id="collect" video-id="{{ video_id }}" src="{% static "imgs/收藏1.svg" %}"
+                             alt=""/>
+                    {% else %}
+                        <img id="collect" video-id="{{ video_id }}" src="{% static "imgs/收藏.svg" %}"
+                             alt=""/>
+                    {% endif %}
+                    <span id="collect_count">{{ view_obj.user_collect_count }}</span>{# 动态获取点赞数 #}
+                </div>
+            </div>
+
+        </div>
+
+        <div class="left_desc">
+            <h4>{{ view_obj.desc }}</h4>
+        </div>
+
+        <div class="left_input_comments">
+            <div class="left_input_pic">
+                <img src="../../{{ current_user_obj.avatar }}" alt="" width="100%" height="100%">
+            </div>
+
+            <form class="navbar-form navbar-left" method="post" action="/input_comment/{{ video_id }}/">
+                {% csrf_token %}
+                <div class="form-group">
+                    <input style="width:850px;height:60px;" type="text" class="form-control" placeholder="留下你的精彩评论吧！"
+                           name="content" required>
+                </div>
+                <button type="submit" class="btn btn-default"
+                        style="height:60px;position:absolute;+margin-top:1px; background-color: #9acfea;">发布
+                </button>
+            </form>
+        </div>
+
+        <div class="left_comments">
+            {% if comment_objs %}
+                {% for comment_obj in comment_objs %}
+                    <div class="left_comment_control">
+                        <div class="left_pic">
+                            <a href="/space/{{ comment_obj.user_comment.id }}">
+                                <img src="../../{{ comment_obj.user_comment.avatar }}" alt="" width="100%"
+                                     height="100%">
+                            </a>
+                        </div>
+
+                        <div class="left_comments_text">
+                            <a href="/space/{{ comment_obj.user_comment.id }}">
+                                <h4>{{ comment_obj.user_comment.nickname }}</h4>
+                            </a>
+                            <h3>
+                                {{ comment_obj.content }}
+                            </h3>
+                            <h5>{{ comment_obj.create_time|date:"Y-m-d H:i:s" }}</h5>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <h2>快来留下你的评论吧~</h2>
+            {% endif %}
+        </div>
+    </div>
+
+
+    <div class="right_base">
+        <div class="right_author">
+            <div>
+                <a href="/space/{{ user_obj.id }}">
+                    <img src="../../{{ user_obj.avatar }}" alt="" width="100%" height="100%">
+                </a>
+            </div>
+            <div class="right_userinfo">
+                <a href="/space/{{ user_obj.id }}">
+                    <h3>{{ user_obj.nickname }}</h3>
+                </a>
+                <h6>{{ user_obj.introduct|truncatechars:10 }}</h6>
+            </div>
+        </div>
+
+        <div class="right_base_recommended">
+            {% for video_recommend_obj in video_recommend_objs %}
+                <div class="right_recommended">
+                    <div>
+                        <a href="/detail/{{ video_recommend_obj.id }}">
+                            <img src="../../{{ video_recommend_obj.cover_photo }}" alt="" style="width: 250px;
+    height: 160px; object-fit: cover">
+                        </a>
+                    </div>
+                    <div class="right_video_title">
+                        <a href="/detail/{{ video_recommend_obj.id }}">
+                            <h3>{{ video_recommend_obj.title }}</h3>
+                        </a>
+                        <a href="/space/{{ video_recommend_obj.users_info.id }}">
+                            <h5>{{ video_recommend_obj.users_info.nickname }}</h5>
+                        </a>
+                        <h5>播放量:{{ video_recommend_obj.users_view_count }}
+                            评论数:{{ video_recommend_obj.user_comment_count }}</h5>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<script>
+    let like = document.querySelector('.favoritegit')
+    let id = document.querySelector('#favorite')
+
+    like.addEventListener('click', () => {
+        let video_id = id.getAttribute("video-id")
+        console.log(video_id)
+        console.dir(id)
+
+        $.ajax({
+            url: '/favorite/',
+            type: 'get',
+            {#contentType: 'application/json',#}
+            data: {"video_id": video_id},
+            success: (data) => {
+                console.log(data)
+                if (data.video_favorite_static) {
+                    id.src = `../../static/imgs/点赞1.svg`
+                } else {
+                    id.src = `../../static/imgs/点赞.svg`
+                }
+                $('#favorite_count').text(data.video_favorite_counts)
+            }
+        })
+    })
+
+</script>
+
+<script>
+    let collect = document.querySelector('.collectgit')
+    let videoid = document.querySelector('#collect')
+
+    collect.addEventListener('click', () => {
+        let video_id = videoid.getAttribute("video-id")
+        console.log(video_id)
+        console.dir(videoid)
+
+        $.ajax({
+            url: '/collect/',
+            type: 'get',
+            {#contentType: 'application/json',#}
+            data: {"video_id": video_id},
+            success: (data) => {
+                console.log(data)
+                if (data.video_collect_static) {
+                    videoid.src = `../../static/font/收藏1.svg`
+                } else {
+                    videoid.src = `../../static/font/收藏.svg`
+                }
+                $('#collect_count').text(data.video_collect_counts)
+            }
+        })
+    })
+
+</script>
+
+</body>
+</html>

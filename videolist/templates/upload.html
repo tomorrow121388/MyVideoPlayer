@@ -1,0 +1,69 @@
+{% include "base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>欢迎投稿</title>
+    <link rel="stylesheet" href="../static/bootstrap-3.4.1-dist/css/upload.css">
+</head>
+<body>
+<div class="base_control" style="padding-left: 50px; padding-top: 20px; padding-right: 50px; padding-bottom: 10px">
+    <form class="form-horizontal" method="post" action="/upload/" enctype="multipart/form-data">
+
+        {% csrf_token %}
+        <div class="form-group">
+            <label>上传视频</label>
+
+            <div id='1' style="height:25px;width:1600px;border:2px solid gray;float:left;margin-right:10px;">
+                <div id='2' style="height:100%;width:0;background:gray;">
+                    <b style="margin-right:20px" id='3'>0%</b>
+                </div>
+
+            </div>
+
+
+            <input type="file" id='file' class='file' name="file">
+            {#            <button type="button" onclick="upload();">上传</button>#}
+        </div>
+        {% for field in video_form %}
+            <div class="form-group">
+                <label>{{ field.label }}</label>
+                {{ field }}
+            </div>
+        {% endfor %}
+
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary" onclick="upload()">提交</button>
+        </div>
+
+    </form>
+</div>
+
+
+</body>
+
+<script>
+    function on_progress(evt) {       //看这个函数之前先看upload函数。这个函数可以接收一个evt(event)对象(细节自行查询progress)，他有3个属性lengthComputable，loaded，total，第一个属性是个bool类型的，代表是否支持，第二个代表当前上传的大小，第三个为总的大小，由此便可以计算出实时上传的百分比
+        if (evt.lengthComputable) {
+            var ele = document.getElementById('2');
+            var percent = Math.round((evt.loaded) * 100 / evt.total);
+            ele.style.width = percent + '%';
+            document.getElementById('3').innerHTML = percent + '%';
+        }
+    }
+
+    function upload() {
+        var xhr = new XMLHttpRequest();
+        var file = document.getElementById('file').files[0];   //取得文件数据，而.file对象只是文件信息
+        console.log(file);
+        var form = new FormData();
+        form.append('file', file);   //这里为序列化表单对象form添加一个元素，即file
+        xhr.upload.addEventListener('progress', on_progress, false);     //xhr对象含有一个upload对象，它有一个progress事件，在文件上传过程中会被不断触发，我们为这个事件对应一个处理函数，每当事件触发就会调用这个函数，于是便可利用这个函数来修改当前进度，更多细节可自行查询
+        xhr.open('POST', 'http://127.0.0.1:8000/upload/', true);  //请将url改成上传url
+        xhr.setRequestHeader('X-CSRFTOKEN', '{{ request.COOKIES.csrftoken }}');   //此处为Django要求，可无视，或者换成相应后台所要求的CSRF防护，不是django用户请去掉
+        xhr.send(form);   //发送表单
+    }
+</script>
+
+</html>

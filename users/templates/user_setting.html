@@ -1,0 +1,75 @@
+{% extends "space.html" %}
+
+<link href="../../static/bootstrap-3.4.1-dist/css/space.css" rel="stylesheet">
+
+{% block space_group %}
+    {% if request.session.user_id == user_id %}
+        <div class="base_space_group">
+            <a href="/space/{{ user_id }}/">主页</a>
+            <a href="/space_liked/{{ user_id }}/">点赞</a>
+            <a href="/space_collect/{{ user_id }}/">收藏</a>
+            <a href="/setting/{{ user_id }}/" style="background-color: #ddd;color: #2aabd2;">设置</a>
+        </div>
+    {% else %}
+        <div class="base_space_group">
+            <a href="/space/{{ user_id }}/">主页</a>
+            <a href="/space_liked/{{ user_id }}/">点赞</a>
+            <a href="/space_collect/{{ user_id }}/">收藏</a>
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <div class="base_setting">
+        <form class="form-horizontal" method="post" action="/setting/{{ user_id }}/" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                <label>头像</label>
+                <div class="form_avatar">
+                    <img src="../../{{ space_user_obj.avatar }}" alt="">
+                    <div style="margin-left: 10px;padding-top: 65px">
+                        <input type="file" name="file" placeholder="更换头像"/>
+                    </div>
+
+                </div>
+            </div>
+
+            {% for field in setting_from %}
+                <div class="form-group">
+                    <label>{{ field.label }}</label>
+                    {{ field }}
+                </div>
+            {% endfor %}
+
+            <div class="form-group">
+                {#                <div class="col-sm-offset-2 col-sm-10">#}
+                <button type="submit" class="btn btn-primary">提交</button>
+                {#                </div>#}
+            </div>
+        </form>
+
+
+        {#        <form class="form_setting" action="/setting/{{ user_id }}" method="post">#}
+        {#            {% csrf_token %}#}
+        {#            <div class="form_avatar">#}
+        {#                {{ setting_from.avatar.label_tag }}#}
+        {#                {{ setting_from.avatar }}#}
+        {#            </div>#}
+        {##}
+        {#            <div class="form-group">#}
+        {#                {{ setting_from.nickname.label_tag }}#}
+        {#                {{ setting_from.nickname }}#}
+        {#            </div>#}
+        {#            <div class="form-group">#}
+        {#                {{ setting_from.introduct.label_tag }}#}
+        {#                {{ setting_from.introduct }}#}
+        {#            </div>#}
+        {#            <div class="form-group">#}
+        {#                {{ setting_from.gender.label_tag }}#}
+        {#                {{ setting_from.gender }}#}
+        {#            </div>#}
+        {#            <button type="submit" class="btn btn-primary">提交</button>#}
+        {##}
+        {#        </form>#}
+    </div>
+{% endblock %}

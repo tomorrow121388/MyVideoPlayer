@@ -1,0 +1,20 @@
+* {
+    /*margin: 20px;*/
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background-image: url("../images/fengjing.jpg");
+    background-size: 100% 100%;
+    background-attachment: fixed;
+    -webkit-background-size: cover; /* 兼容Webkit内核浏览器如Chrome和Safari */
+    -o-background-size: cover; /* 兼容Opera */
+}
+
+.base_control {
+    margin-left: 100px;
+    margin-right: 100px;
+    width: 1725px;
+    background-color: #c4e3f3;
+}

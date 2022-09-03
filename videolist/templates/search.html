@@ -1,0 +1,40 @@
+{% include "base.html" %}
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <title>{{ search_words }}-VideoPlayer</title></head>
+<link href="../static/bootstrap-3.4.1-dist/css/index.css" rel="stylesheet">
+<body>
+
+<div class="grid-container" style="margin-right: 120px;margin-left: 120px">
+    {% for search_info in search_result_obj %}
+        <div class="grid-item">
+            <a href="#">
+                <a href="#">
+                    {#                    这里添加图片信息#}
+                    <img src="#" alt="{{ search_info.title }}" width="250"
+                         height="150">
+                </a>
+                <p><a href="#">{{ search_info.title|truncatechars:20 }}</a></p>
+                <p><a href="#">{{ search_info.create_time|date:"Y-m-d H:i:s" }}</a></p>
+            </a>
+        </div>
+    {% empty %}
+        <h2>什么都还没有呢~</h2>
+    {% endfor %}
+</div>
+
+{#{% if result_count > 20 %}#}
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            {{ page_obj.page_html|safe }}
+        </div>
+    </div>
+</div>
+{#{% endif %}#}
+
+
+</body>
+</html>

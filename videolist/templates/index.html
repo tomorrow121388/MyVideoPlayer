@@ -1,0 +1,102 @@
+{% load static %}
+{% include "base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>videoplayer</title>
+    {#    {% block title %}VideoPlayer{% endblock %}#}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}VideoPlayer{% endblock %}</title>
+    <link href="../static/bootstrap-3.4.1-dist/css/index.css" rel="stylesheet">
+    <script src="{% static 'bootstrap-3.4.1-dist/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'bootstrap-3.4.1-dist/js/jquery-3.2.1.min.js' %}"></script>
+
+</head>
+
+<body>
+<div class="header">
+    {#    <div class="swipe">#}
+    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel" style="margin-top: -9px;">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+            <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+        </ol>
+
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner" role="listbox">
+            <div class="item active">
+                <a href="/detail/{{ slideshow_objs.0.id }}">
+                    <img style="width: 850px;height: 480px; object-fit: cover"
+                         src="../{{ slideshow_objs.0.cover_photo }}"
+                         alt="...">
+                    <div class="carousel-caption">
+                    </div>
+                </a>
+            </div>
+            <div class="item">
+                <a href="/detail/{{ slideshow_objs.1.id }}">
+                    <img style="width: 850px;height: 480px; object-fit: cover"
+                         src="../{{ slideshow_objs.1.cover_photo }}"
+                         alt="...">
+                    <div class="carousel-caption">
+                    </div>
+                </a>
+            </div>
+            <div class="item">
+                <a href="/detail/{{ slideshow_objs.2.id }}">
+                    <img style="width: 850px;height: 480px; object-fit: cover"
+                         src="../{{ slideshow_objs.2.cover_photo }}"
+                         alt="...">
+                    <div class="carousel-caption">
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="topnav" style="margin-right: 130px;margin-left: 130px">
+    {% for group_obj in group_objs %}
+        <a style="{% if g_id == group_obj.id|stringformat:'s' %} background-color: #ddd;color: black; {% endif %}"
+           href="?g_id={{ group_obj.id }}">{{ group_obj.group }}</a>
+    {% empty %}
+        什么都还没有呢~
+    {% endfor %}
+</div>
+
+<div class="grid-container" style="margin-right: 120px;margin-left: 120px">
+    {% for video_info in video_group_obj %}
+        <div class="grid-item">
+
+            <a href="detail/{{ video_info.id }}/">
+                <img src="../{{ video_info.cover_photo }}" alt="{{ video_info.title }}" style="border-radius: 10px; width:250px;
+                     height:150px; object-fit: cover">
+            </a>
+            <p><a href="detail/{{ video_info.id }}/">{{ video_info.title|truncatechars:20 }}</a></p>
+            <p>
+                <a href="/space/{{ video_info.users_info.id }}">用户名nickname {{ video_info.create_time|date:"Y-m-d H:i:s" }}</a>
+            </p>
+
+        </div>
+    {% empty %}
+        <h2>什么都还没有呢~</h2>
+    {% endfor %}
+</div>
+
+{% if all_count > 20 %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                {{ page_obj.page_html|safe }}
+            </div>
+        </div>
+    </div>
+{% endif %}
+
+
+</body>
+</html>

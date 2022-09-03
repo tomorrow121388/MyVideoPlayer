@@ -1,0 +1,177 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>{% block title %}登录{% endblock %}</title>
+
+    <!-- Bootstrap -->
+    <link href="{% static 'bootstrap-3.4.1-dist/css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    {% block css %}{% endblock %}
+</head>
+<body>
+{% block content %}
+    <div class="container">
+        <div class="col-md-4 col-md-offset-4">
+
+            <form class='form-login' action="/login/" method="post">
+                {% if message %}
+                    <div class="alert alert-warning">{{ message }}</div>
+                {% endif %}
+
+                {% csrf_token %}
+
+                <h2 class="text-center">欢迎登录</h2>
+
+                {{ login_form }}
+
+                <button type="reset" class="btn btn-default pull-left">重置</button>
+                <button type="submit" class="btn btn-primary pull-right">提交</button>
+
+            </form>
+        </div>
+    </div> <!-- /container -->
+{% endblock %}
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{#{% load static %}#}
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#<head>#}
+{#    <meta charset="UTF-8">#}
+{#    <title>Title</title>#}
+{#    <link rel="stylesheet" href="{% static 'bootstrap-3.4.1-dist/css/bootstrap.min.css' %}">#}
+{##}
+{#    <style>#}
+{#        .account {#}
+{#            width: 400px;#}
+{#            border: 1px solid #dddddd;#}
+{#            border-radius: 5px;#}
+{#            box-shadow: 5px 5px 20px #aaa;#}
+{##}
+{#            margin-left: auto;#}
+{#            margin-right: auto;#}
+{#            margin-top: 100px;#}
+{#            padding: 20px 40px;#}
+{#        }#}
+{##}
+{#        .account h2{#}
+{#            margin-top: 10px;#}
+{#            text-align: center;#}
+{#        }#}
+{#    </style>#}
+{#    <style>#}
+{#        body{#}
+{#            background:url(#E:\pycharm\VideoPlayer\users\static\bootstrap-3.4.1-dist\images\dahong.png) no-repeat fixed center;#}
+{#        }#}
+{#    </style>#}
+{#</head>#}
+{#<body>#}
+{##}
+{#<div class="account">#}
+{#    <h2>用户登录</h2>#}
+{#    <form>#}
+{#        <div class="form-group">#}
+{#            <label>用户名</label>#}
+{#            <input type="text" class="form-control" placeholder="用户名">#}
+{#        </div>#}
+{#        <div class="form-group">#}
+{#            <label>密码</label>#}
+{#            <input type="password" class="form-control" placeholder="密码">#}
+{#        </div>#}
+{##}
+{#        <input tpye="submit" value="登 录" class="btn btn-primary">#}
+{##}
+{#    </form>#}
+{#</div>#}
+{#</body>#}
+{#</html>#}
+
+
+{#{% extends 'base.html' %}#}
+{#{% load static %}#}
+{#{% load staticfiles %}#}
+{#{% block title %}登录{% endblock %}#}
+{#{% block css %}#}
+{#    <link rel="stylesheet" href="{% static 'bootstrap-3.4.1-dist/css/login.css' %}">#}
+{#{% endblock %}#}
+{##}
+{##}
+{#{% block content %}#}
+{#    <div class="container">#}
+{#        <div class="col-md-4 col-md-offset-4">#}
+{#            <form class='form-login' action="/login/" method="post">#}
+{#                {% if message %}#}
+{#                    <div class="alert alert-warning">{{ message }}</div>#}
+{#                {% endif %}#}
+{##}
+{#                {% csrf_token %}#}
+{##}
+{#                <h2 class="text-center">欢迎登录</h2>#}
+{##}
+{#                {{ login_form }}#}
+{##}
+{#                <div class="form-group">#}
+{#                    {{ login_form.username.label_tag }}#}
+{#                    {{ login_form.username }}#}
+{#                </div>#}
+{#                <div class="form-group">#}
+{#                    {{ login_form.password.label_tag }}#}
+{#                    {{ login_form.password }}#}
+{##}
+                    {#                <div class="form-group">#}
+                    {#                    <label for="id_username">用户名：</label>#}
+                    {#                    <input type="text" name='username' class="form-control" id="id_username" placeholder="Username"#}
+                    {#                           autofocus required>#}
+                    {#                </div>#}
+                    {#                <div class="form-group">#}
+                    {#                    <label for="id_password">密码：</label>#}
+                    {#                    <input type="password" name='password' class="form-control" id="id_password" placeholder="Password"#}
+                    {#                           required>#}
+                    {#                </div>#}
+{#                    <button type="reset" class="btn btn-default pull-left">重置</button>#}
+{#                    <button type="submit" class="btn btn-primary pull-right">提交</button>#}
+{#                </div>#}
+{#            </form>#}
+{#        </div>#}
+{#    </div> <!-- /container -->#}
+{#{% endblock %}#}
+
+
+
+
+
+
+
+
+
+
+
+

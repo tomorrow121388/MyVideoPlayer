@@ -1,0 +1,91 @@
+{% include "base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ space_user_obj.nickname }}的个人空间</title>
+    <link href="../../static/bootstrap-3.4.1-dist/css/space.css" rel="stylesheet">
+    <link href="../../static/bootstrap-3.4.1-dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="base_control">
+    <div class="base_userinfo">
+        <div class="user_info">
+            <div class="user_avatar">
+                <img src="../../{{ space_user_obj.avatar }}" width="100%" height="100%" alt="">
+            </div>
+            <div class="user_title">
+                <div class="user_title_gender">
+                    <h2>{{ space_user_obj.nickname }}</h2>
+                    {% if space_user_obj.gender == 1 %}
+                        <img src="../../static/bootstrap-3.4.1-dist/images/man.svg" alt="">
+                    {% else %}
+                        <img src="../../static/bootstrap-3.4.1-dist/images/woman.svg" alt="">
+                    {% endif %}
+                </div>
+                <div>
+                    <h5>{{ space_user_obj.introduct }}</h5>
+                </div>
+
+            </div>
+            {% if request.session.user_id == user_id %}
+                <div class="user_upload">
+                    <a href="/upload/">
+                        <button href="/upload/">投稿↑</button>
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    {% block space_group %}
+        {% if request.session.user_id == user_id %}
+            <div class="base_space_group">
+                <a href="/space/{{ user_id }}/" style="background-color: #ddd;color: #2aabd2;">主页</a>
+                <a href="/space_liked/{{ user_id }}/">点赞</a>
+                <a href="/space_collect/{{ user_id }}/">收藏</a>
+                <a href="/setting/{{ user_id }}/">设置</a>
+            </div>
+
+        {% else %}
+            <div class="base_space_group">
+                <a href="/space/{{ user_id }}/" style="background-color: #ddd;color: #2aabd2;">主页</a>
+                <a href="/space_liked/{{ user_id }}/">点赞</a>
+                <a href="/space_collect/{{ user_id }}/">收藏</a>
+            </div>
+        {% endif %}
+    {% endblock %}
+    {% block content %}
+        <div class="grid-container">
+            {% for space_video_obj in space_video_objs %}
+                <div class="grid-item">
+                    <a href="/detail/{{ space_video_obj.id }}">
+                        <img src="../../{{ space_video_obj.cover_photo }}" alt=" " style="border-radius: 10px; width:325px;
+                             height:200px; object-fit: cover">
+                    </a>
+                    <h4><a href="/detail/{{ space_video_obj.id }}">{{ space_video_obj.title|truncatechars:20 }}</a></h4>
+                    <p>{{ space_video_obj.create_time|date:"Y-m-d H:i:s" }}</p>
+                </div>
+
+            {% empty %}
+                <h2>什么都还没有呢~</h2>
+            {% endfor %}
+        </div>
+    {% endblock %}
+
+    {#    {% block page %}#}
+    {% if all_count > 20 %}
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    {{ page_obj.page_html|safe }}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    {#    {% endblock %}#}
+
+</div>
+
+
+</body>
+</html>
