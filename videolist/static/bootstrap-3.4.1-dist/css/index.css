@@ -15,7 +15,6 @@ body {
 /* 设置页眉的样式 */
 .header {
     margin: auto;
-
     width: 850px;
     height: 500px;
     position: relative;

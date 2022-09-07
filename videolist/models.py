@@ -40,9 +40,11 @@ class Video(BaseModel):
     cover_photo = models.FileField(verbose_name="封面图片", max_length=2000, blank=True, null=True)
     # status = models.CharField(verbose_name="发布状态", max_length=1, choices=status_choice,default=0)
 
-    users_favorite = models.ManyToManyField(verbose_name="喜欢", to="users.Users", related_name="favorite_video")
+    users_favorite = models.ManyToManyField(verbose_name="喜欢", to="users.Users", related_name="favorite_video",
+                                            blank=True)
     users_info = models.ForeignKey(verbose_name="用户", to="users.Users", to_field="id", on_delete=models.CASCADE)
-    users_collection = models.ManyToManyField(verbose_name="收藏", to="users.Users", related_name="collected_video")
+    users_collection = models.ManyToManyField(verbose_name="收藏", to="users.Users", related_name="collected_video",
+                                              blank=True)
     users_view_count = models.IntegerField(verbose_name="观看次数", default=0)
 
     class Meta:

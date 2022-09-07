@@ -15,11 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+
+from livestreaming import urls as live
 from users import urls as users_info
 from videolist import urls as video
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(users_info)),
     path('', include(video)),
+    path('', include(live)),
 ]

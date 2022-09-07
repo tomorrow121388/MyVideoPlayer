@@ -7,7 +7,7 @@ class AuthMiddleware(MiddlewareMixin):
         info = request.session.get("is_login")
         if info:
             return
-        if request.path_info == '/login/' or request.path_info == '/':
+        if request.path_info == '/login/' or request.path_info == '/' or request.path_info == '/register/':
             return
 
         return redirect('/login/')

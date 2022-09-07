@@ -1,0 +1,66 @@
+* {
+    /*margin: 20px;*/
+    box-sizing: border-box;
+}
+
+body {
+    /*text-align: center;*/
+    margin: 0;
+    background-image: url("../images/fengjing.jpg");
+    background-size: 100% 100%;
+    background-attachment: fixed;
+    -webkit-background-size: cover; /* 兼容Webkit内核浏览器如Chrome和Safari */
+    -o-background-size: cover; /* 兼容Opera */
+}
+
+.base {
+    display: flex;
+    margin-left: 150px;
+    margin-right: 150px;
+    height: 800px;
+    width: 1388px;
+    /*background-color: #4cae4c;*/
+}
+
+.base_left {
+    height: 800px;
+    width: 1050px;
+    /*border: 1px solid rgba(0, 255, 0, 0.8);*/
+    /*background-color: #b92c28;*/
+    margin-right: auto;
+}
+
+.base_left_title {
+    /*display: flex;*/
+    height: 100px;
+    width: 1050px;
+    /*margin: 10px;*/
+    /*background-color: #2aabd2;*/
+}
+
+.base_left_video {
+    width: 1050px;
+    height: 550px;
+    background-color: #0f0f0f;
+
+}
+
+.base_right {
+    margin-left: 30px;
+    /*padding: 50px;*/
+    height: 800px;
+    width: 500px;
+    /*background-color: #f5e79e;*/
+    /*border: 1px solid rgba(255, 255, 0, 0.8);*/
+
+}
+
+.message {
+    height: 620px;
+    border: 1px solid #dddddd;
+    width: 100%;
+}
+
+.input_message {
+    display: flex;
+}

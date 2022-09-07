@@ -1,0 +1,28 @@
+{% load static %}
+{% include "base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="grid-container" style="margin-right: 120px;margin-left: 120px">
+    {% for live_obj in live_objs %}
+        <div class="grid-item">
+
+            <a href="/livedetail/{{ live_obj.id }}/">
+                <img src="../{{ live_obj.live_photo }}" alt=".." style="border-radius: 10px; width:250px;
+                     height:150px; object-fit: cover">
+            </a>
+
+            <p><a href="/livedetail/{{ live_obj.id }}/">{{ live_obj.live_title|truncatechars:20 }}</a></p>
+
+        </div>
+    {% empty %}
+        <h2>什么都还没有呢~</h2>
+    {% endfor %}
+</div>
+
+</body>
+</html>

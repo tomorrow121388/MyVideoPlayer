@@ -21,7 +21,7 @@ class Users(BaseModel):
     )
     gender = models.IntegerField(verbose_name="性别", choices=gender_choice)
     nickname = models.CharField(verbose_name="用户名", max_length=11)
-    avatar = models.FileField(verbose_name="头像", upload_to='avatar/')
+    avatar = models.FileField(verbose_name="头像", upload_to='avatar/', default="static/avatar/default/default.png")
     mobile = models.CharField(verbose_name="手机号", blank=True, null=True, max_length=13)
     # subscribe = models.BooleanField(verbose_name="是否订阅", default=False)
     introduct = models.CharField(verbose_name="简介", max_length=63, default="这个人很懒，不会写简介！")

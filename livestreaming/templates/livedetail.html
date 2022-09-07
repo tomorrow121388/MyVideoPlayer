@@ -1,0 +1,79 @@
+{% load static %}
+{% include "base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="{% static 'css/livedetail.css' %}" rel="stylesheet">
+    <script src="{% static 'bootstrap-3.4.1-dist/js/jquery-3.2.1.min.js' %}" type="text/javascript"></script>
+</head>
+<body>
+<div class="base">
+    <div class="base_left">
+        <div class="base_left_title">
+            <h2>{{ live_detail_obj.live_title }}</h2><br>
+            <h4>{{ live_detail_obj.live_desc }}</h4>
+        </div>
+
+        <div class="base_left_video">
+            {#            <video width="100%" height="100%">#}
+            {#                <source id="resImg" src="" type="video/mp4">#}
+            {#            </video>#}
+                <img id="resImg" src="" alt="" height="100%" style="margin-left: 150px"/>
+        </div>
+        {#        <input type="button" value="打开直播" href="/openlive/">#}
+    </div>
+
+    <div class="base_right">
+        <div class="message" id="message"></div>
+        <div class="input_message">
+            <input type="text" placeholder="请输入内容" id='txt' style="width: 258px; height: 45px;">
+            <input type="button" value="发送" onclick="sendMessage()"
+                   style="background-color: #9acfea; height: 45px;width: 50px;">
+        </div>
+    </div>
+
+</div>
+
+</body>
+
+<script>
+    socket = new WebSocket('ws://127.0.0.1:8000/live/ws/{{ live_id }}/');
+
+    socket.onmessage = function (event) {
+        let tag = document.createElement("div");
+        {#tag.innerText = event.data;#}
+        {#document.getElementById("message").appendChild(tag);#}
+
+        let recv_data = JSON.parse(event.data);
+        {#console.log("recv_msg:" + typeof(data_type)+ typeof(recv_data)+"data_type");#}
+
+        if (recv_data.data_type == "txt") {
+
+            tag.innerText = recv_data.message;
+            document.getElementById("message").appendChild(tag);
+        }
+
+        if (recv_data.data_type == "video") {
+            $("#resImg").attr("src", recv_data.message);
+        }
+    }
+
+    function sendMessage() {
+        let nickname = "{{ request.session.nickname|safe }}：";
+        let tag = document.getElementById("txt");
+        let send_data = {};
+        send_data["data_type"] = "txt";
+        {#console.log(typeof (nickname) + typeof (tag.value))#}
+        send_data["message"] = nickname + tag.value;
+        socket.send(JSON.stringify(send_data));
+        $("#txt").val("");
+
+
+    }
+
+
+</script>
+
+</html>
