@@ -20,3 +20,21 @@ python + mysql + django + websocket + opencv + html + bootstrap样式
 
 首页展示
 -
+![捕获1](https://user-images.githubusercontent.com/82437918/189837233-24e0bea1-951a-46ba-81a2-bac375003f68.PNG)
+
+播放页展示
+-
+![捕获2](https://user-images.githubusercontent.com/82437918/189837439-162e1931-f30c-4423-acfa-6b3a90715f60.PNG)
+
+个人中心页展示
+-
+![捕获3](https://user-images.githubusercontent.com/82437918/189837501-9d4cd87c-7426-49e6-a130-b12947392f5e.PNG)
+
+直播播放页面展示
+-
+![捕获4](https://user-images.githubusercontent.com/82437918/189837595-63170002-24a7-4639-9fce-bf8f1609e2a4.PNG)
+
+投稿页展示
+-
+![捕获5](https://user-images.githubusercontent.com/82437918/189837675-c0ae7828-76bd-44bb-a364-e32713d04816.PNG)
+
